@@ -305,7 +305,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const command = event.results[last][0].transcript.trim().toLowerCase();
             console.log('Recognized command:', command);
 
-            if (command === "what time") {
+            if (command === "time") {
                 showLargeTime();
             }
         };
