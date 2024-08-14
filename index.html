@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quest List</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="custom-cursor"></div>
+    <div id="notebook">
+        <textarea id="notebook-content" placeholder="Write your notes here..."></textarea>
+    </div>
+    <div class="video-container">
+        <video id="bgVideo" autoplay loop muted>
+            <source src="sao_background.mp4" type="video/mp4">
+        </video>
+        <video id="completionVideo" preload="auto" style="display: none;">
+            <source src="task_complete.mp4" type="video/mp4">
+        </video>
+    </div>
+    <audio id="bgMusic" loop>
+        <source src="sao_theme.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="clock-container">
+        <div id="time">
+            <span id="hours"></span>
+            <span id="separator">:</span>
+            <span id="minutes"></span>
+        </div>
+        <div id="day"></div>
+    </div>
+
+    <div id="image-container">
+        <a href="https://chess.com" target="_blank" id="chess-link">
+            <img src="chess1.png" alt="Chess" class="side-image">
+        </a>
+        <a href="https://monkeytype.com" target="_blank" id="keyboard-link">
+            <img src="keyboard.png" alt="Keyboard" class="side-image">
+        </a>
+        <a href="https://mail.google.com/mail/u/0/?pli=1#inbox" target="_blank" id="mail-link">
+            <img src="mail.png" alt="A" class="side-image">
+        </a>
+        <a href="https://www.apprendrelejaponais.net/liste-kanji-jlpt-n5-n4-n3-n2-n1.html" target="_blank" id="kanji-link">
+            <img src="kanji.png" alt="B" class="side-image">
+        </a>
+        <a href="https://www.twitch.tv" target="_blank" id="c-link">
+            <img src="twitch.png" alt="C" class="side-image">
+        </a>
+        <a href="https://claude.ai/chat" target="_blank" id="d-link">
+            <img src="claude1.png" alt="D" class="side-image">
+        </a>
+        <a href="https://kanji.sljfaq.org/draw.fr.html#google_vignette" target="_blank" id="e-link">
+            <img src="kanji_research.png" alt="E" class="side-image">
+        </a>
+    </div>
+
+    <div class="container">
+        <h1>Weekly Quest List 2.0</h1>
+        <div class="tabs">
+            <button class="tab-btn" data-day="sunday">Sunday</button>
+            <button class="tab-btn" data-day="monday">Monday</button>
+            <button class="tab-btn" data-day="tuesday">Tuesday</button>
+            <button class="tab-btn" data-day="wednesday">Wednesday</button>
+            <button class="tab-btn" data-day="thursday">Thursday</button>
+            <button class="tab-btn" data-day="friday">Friday</button>
+            <button class="tab-btn" data-day="saturday">Saturday</button>
+        </div>
+        <form id="quest-form">
+            <input type="text" id="quest-input" placeholder="Enter a new quest" required>
+            <button type="submit">Add Quest</button>
+        </form>
+        <ul id="quest-list"></ul>
+    </div>
+
+    <div class="timed-tasks-container">
+        <button class="close-btn">&times;</button>
+        <div class="timed-tasks-header">
+            <h2>Timed Tasks</h2>
+        </div>
+        <div class="timed-tasks-content">
+            <form id="timed-task-form">
+                <input type="text" id="timed-task-input" placeholder="Enter a new timed task" required>
+                <input type="time" id="timed-task-time" required>
+                <input type="number" id="timed-task-duration" placeholder="Duration (minutes)" required min="1">
+                <button type="submit">Add Timed Task</button>
+            </form>
+            <ul id="timed-task-list"></ul>
+        </div>
+    </div>
+    <div id="enlarged-task" class="enlarged-task-hidden">
+        <div class="enlarged-task-content">
+            <button id="close-enlarged-task" class="close-btn">&times;</button>
+            <h2 id="enlarged-task-name"></h2>
+            <div id="enlarged-task-countdown"></div>
+        </div>
+    </div>
+
+    <button id="toggleMusic" class="music-toggle">Pause Music</button>
+
+    <script src="script.js"></script>
+    <script src="cursor.js"></script>
+</body>
+</html>
