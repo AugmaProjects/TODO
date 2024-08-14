@@ -258,6 +258,67 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('day').textContent = dayString.toUpperCase();
     }
 
+    const updateCountdown = (taskElement, endTime, taskId) => {
+        const countdownElement = taskElement.querySelector('.countdown');
+        const durationElement = taskElement.querySelector('.duration-display');
+        const taskTextElement = taskElement.querySelector('.task-text');
+        
+        const updateTimer = () => {
+            const now = new Date();
+            const timeLeft = endTime - now;
+    
+            if (timeLeft <= 0) {
+                clearInterval(timer);
+                playSound(completionSound);
+                const index = timedTasks.findIndex(task => task.id === taskId);
+                if (index !== -1) {
+                    removeTimedTask(index);
+                }
+                timedTasksContainer.classList.remove('active');
+                hideEnlargedTask();
+                activeTaskId = null;
+            } else {
+                const minutes = Math.floor(timeLeft / 60000);
+                const seconds = Math.floor((timeLeft % 60000) / 1000);
+                const countdownText = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                countdownElement.textContent = countdownText;
+                enlargedTaskCountdown.textContent = countdownText;
+            }
+        };
+    
+        durationElement.style.display = 'none';
+        countdownElement.style.display = 'inline';
+        
+        if (timedTasksContainer.classList.contains('active')) {
+            taskTextElement.style.display = 'block';
+            taskTextElement.style.marginBottom = '20px';
+        }
+        
+        const timer = setInterval(updateTimer, 1000);
+        updateTimer();
+    };
+
+    const showEnlargedTask = (taskName, taskId) => {
+        enlargedTaskName.textContent = taskName;
+        enlargedTask.style.display = 'flex';
+        enlargedTask.classList.remove('enlarged-task-hidden');
+        enlargedTask.classList.add('enlarged-task-visible');
+        activeTaskId = taskId;
+    };
+
+    const hideEnlargedTask = () => {
+        enlargedTask.classList.remove('enlarged-task-visible');
+        enlargedTask.classList.add('enlarged-task-hidden');
+        enlargedTask.style.display = 'none';
+        if (activeTaskId) {
+            const activeTask = timedTasks.find(task => task.id === activeTaskId);
+            if (activeTask) {
+                activeTask.hasBeenClosed = true;
+            }
+        }
+        activeTaskId = null;
+    };
+
     // Voice Recognition Setup
     console.log("Setting up voice recognition");
     const voiceButton = document.createElement('button');
@@ -270,28 +331,21 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.appendChild(voiceButton);
     console.log("Voice button created:", voiceButton);
 
-    voiceButton.addEventListener('click', async () => {
+    voiceButton.addEventListener('click', () => {
         console.log('Voice button clicked');
-        if (!('SpeechRecognition' in window || 'webkitSpeechRecognition' in window)) {
-            console.error('Speech Recognition API is not supported in this browser');
-            alert('Speech Recognition is not supported in this browser. Please try using Google Chrome.');
-            return;
-        }
-        
-        try {
-            await navigator.mediaDevices.getUserMedia({ audio: true });
-            startVoiceRecognition();
-        } catch (err) {
-            console.error('Microphone permission denied:', err);
-            alert('Microphone permission is required for voice recognition.');
-        }
+        startVoiceRecognition();
     });
 
     function startVoiceRecognition() {
         console.log('Starting voice recognition');
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SpeechRecognition) {
+            console.error('Speech recognition not supported');
+            alert('Speech recognition is not supported in this browser. Please try using Google Chrome.');
+            return;
+        }
+
         const recognition = new SpeechRecognition();
-        
         recognition.continuous = true;
         recognition.interimResults = false;
 
@@ -320,12 +374,21 @@ document.addEventListener('DOMContentLoaded', () => {
             voiceButton.textContent = 'Start Voice Recognition';
         };
 
-        try {
-            recognition.start();
-            console.log('Recognition.start() called');
-        } catch (err) {
-            console.error('Error starting recognition:', err);
-        }
+        recognition.start();
+    }
+
+    function showLargeTime() {
+        const now = new Date();
+        const timeString = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
+        
+        const largeTimeDisplay = document.createElement('div');
+        largeTimeDisplay.id = 'largeTimeDisplay';
+        largeTimeDisplay.textContent = timeString;
+        document.body.appendChild(largeTimeDisplay);
+
+        setTimeout(() => {
+            largeTimeDisplay.remove();
+        }, 5000);
     }
 
     function showLargeTime() {
