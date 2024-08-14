@@ -1,0 +1,581 @@
+body, html {
+    cursor: none;
+}
+
+#custom-cursor {
+    position: fixed;
+    width: 32px;  /* Adjust based on your image size */
+    height: 32px; /* Adjust based on your image size */
+    background-image: url('mouse3.png');
+    background-size: contain;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+/* Ensure all elements use the custom cursor */
+* {
+    cursor: none !important;
+}
+
+
+body, html {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    color: #fff;
+    background-color: #000;
+}
+
+.video-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+#bgVideo, #completionVideo {
+    object-fit: cover;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+#completionVideo {
+    display: none;
+}
+
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 168, 255, 0.5);
+    position: relative;
+    z-index: 1;
+}
+
+h1 {
+    text-align: center;
+    color: #00a8ff;
+    text-shadow: 0 0 10px #00a8ff;
+    margin-bottom: 20px;
+}
+
+.tabs {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.tab-btn {
+    flex-grow: 1;
+    padding: 10px;
+    background-color: rgba(0, 168, 255, 0.5);
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.tab-btn:hover, .tab-btn.active {
+    background-color: #00a8ff;
+}
+
+#quest-form {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+#quest-input {
+    flex-grow: 1;
+    padding: 10px;
+    font-size: 16px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid #00a8ff;
+    border-radius: 4px 0 0 4px;
+    color: #fff;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #00a8ff;
+    color: white;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0097e6;
+}
+
+#quest-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#quest-list li {
+    background-color: rgba(255, 255, 255, 0.1);
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.quest-text {
+    flex-grow: 1;
+    margin-right: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.priority-select {
+    padding: 5px;
+    margin-right: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid #00a8ff;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 16px;
+    min-width: 120px;
+}
+
+.priority-select option[value="image1"] {
+    color: #00ff00;
+}
+
+.priority-select option[value="image2"] {
+    color: #ffa500;
+}
+
+.priority-select option[value="image3"] {
+    color: #ff0000;
+}
+
+.priority-select[data-priority="image1"] {
+    color: #00ff00;
+}
+
+.priority-select[data-priority="image2"] {
+    color: #ffa500;
+}
+
+.priority-select[data-priority="image3"] {
+    color: #ff0000;
+}
+
+.complete-btn {
+    background: linear-gradient(to top, rgb(60, 50, 209), cyan);
+    padding: 5px 10px;
+    border-radius: 3px;
+    font-size: 14px;
+}
+
+.complete-btn:hover {
+    background-color: #f50909;
+}
+
+.music-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #00a8ff;
+    border-radius: 5px;
+    z-index: 2;
+}   
+
+/* Clock styles */
+#clock-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 168, 255, 0.5);
+    z-index: 2;
+    font-family: 'Orbitron', sans-serif;
+}
+
+#time {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #00a8ff;
+    text-shadow: 0 0 10px rgba(0, 168, 255, 0.7);
+}
+
+#separator {
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+
+#separator.blink {
+    opacity: 0;
+}
+
+#day {
+    font-size: 1rem;
+    margin-top: 5px;
+    letter-spacing: 2px;
+    color: #fff;
+}
+
+/* New styles for chess and keyboard images */
+/* Styles for all images in the container */
+#image-container {
+    position: fixed;
+    top: 120px;
+    right: 20px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+#image-container a img,
+#image-container img {
+    width: 64px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 168, 255, 0.5);
+    transition: transform 0.3s ease;
+    margin-bottom: 15px;
+}
+
+#image-container a:hover img,
+#image-container img:hover {
+    transform: scale(1.05);
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 600px) {
+    #image-container {
+        top: 80px;
+        right: 10px;
+    }
+    
+    #image-container a img,
+    #image-container img {
+        width: 48px;
+    }
+}
+
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 168, 255, 0.5);
+    position: relative;
+    z-index: 1;
+}
+
+/* Notebook styles */
+#notebook {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 300px;
+    height: 200px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid #00a8ff;
+    border-radius: 10px;
+    padding: 10px;
+    z-index: 1000;
+}
+
+#notebook-content {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    resize: none;
+}
+
+#notebook-content::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Media query for responsiveness */
+@media (max-width: 768px) {
+    #notebook {
+        width: calc(100% - 40px);
+        height: 150px;
+    }
+    
+    .container {
+        margin-top: 190px; /* Add space below the notebook on small screens */
+    }
+}
+/* Timed Tasks Container */
+.timed-tasks-container {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 300px;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 168, 255, 0.5);
+    z-index: 1000;
+    overflow: hidden;
+    transition: height 0.5s ease-in-out;
+}
+
+.timed-tasks-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.timed-tasks-container h2 {
+    color: #00a8ff;
+    text-shadow: 0 0 10px #00a8ff;
+    margin: 0;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: #00a8ff;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+}
+
+/* Timed Task Form */
+#timed-task-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+#timed-task-form input,
+#timed-task-form button {
+    padding: 8px;
+    font-size: 14px;
+    border-radius: 4px;
+}
+
+#timed-task-form input {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid #00a8ff;
+    color: #fff;
+}
+
+#timed-task-form button {
+    background-color: #00a8ff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#timed-task-form button:hover {
+    background-color: #0097e6;
+}
+
+/* Timed Task List */
+#timed-task-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#timed-task-list li {
+    background-color: rgba(255, 255, 255, 0.1);
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.timed-task-active {
+    background-color: rgba(0, 168, 255, 0.3) !important;
+    box-shadow: 0 0 10px #00a8ff;
+}
+
+.task-text {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.duration-display,
+.countdown {
+    font-size: 0.9em;
+    color: #ddd;
+}
+
+.countdown {
+    font-weight: bold;
+    color: #00a8ff;
+}
+
+.delete-timed-task {
+    background-color: #ff4757;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.3s;
+}
+
+.delete-timed-task:hover {
+    background-color: #ff6b81;
+}
+
+/* Active container styles */
+.timed-tasks-container.active {
+    height: auto;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.timed-tasks-container.active .task-text {
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .timed-tasks-container {
+        width: calc(100% - 40px);
+        max-width: 300px;
+    }
+}
+
+.enlarged-task-hidden {
+    display: none;
+}
+
+/*.....................................................passer de fond noir a fond avec image .......................................................*/
+/*.enlarged-task-visible {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 60%;
+    background-color: rgba(0, 0, 0, 0.9);
+    border: 2px solid #ff0000;
+    border-radius: 10px;
+    z-index: 1001;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.enlarged-task-content {
+    color: #fff;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}          
+    
+*/
+.enlarged-task-visible {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 60%;
+    background-image: url('kayaba.png'); /* New background image */
+    background-size: cover; /* Ensures the image covers the entire container */
+    background-position: center; /* Centers the image */
+    border: 2px solid #ff0000;
+    border-radius: 10px;
+    z-index: 1001;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.enlarged-task-content {
+    color: #fff;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent; /* Semi-transparent overlay to ensure text readability */
+}
+
+/*......................................................passer de fond noir a fond avec imag......................................................*/
+#enlarged-task-name {
+    font-size: 5vw;
+    margin-bottom: 5vh;
+    line-height: 1.2;
+    max-height: 60%;
+    overflow-y: auto;
+    word-wrap: break-word;
+}
+
+
+#enlarged-task-countdown {
+    font-size: 10vw;
+    font-weight: bold;
+    color: #4d0505;
+    
+}
+
+#close-enlarged-task {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: #330202;
+    font-size: 28px;
+    cursor: pointer;
+    padding: 5px 10px;
+    transition: color 0.3s ease;
+}
+
+#close-enlarged-task:hover {
+    color: #fff;
+}
+
+#largeTimeDisplay {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 10vw;
+    color: #00a8ff;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    z-index: 2000;
+}
