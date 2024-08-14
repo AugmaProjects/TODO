@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const soundEffect = new Audio('sound1.mp3');
     const completionSound = new Audio('task_complete.mp3');
-    const closeSound = new Audio('close_sound.mp3');  // New sound for closing enlarged task
+    const closeSound = new Audio('close_sound.mp3');
 
     const timedTasksContainer = document.querySelector('.timed-tasks-container');
     const closeBtn = document.querySelector('.close-btn');
@@ -52,12 +52,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('mouseup', () => {
         cursor.style.transform = 'scale(1)';
     });
-
-    document.body.addEventListener('mouseover', (e) => {
-        if (e.target.style) {
-            e.target.style.cursor = 'none';
-        }
-    }, true);
 
     // Save functions
     const saveQuests = () => {
@@ -325,36 +319,30 @@ document.addEventListener('DOMContentLoaded', () => {
         activeTaskId = null;
     };
 
-    // ... (previous code remains unchanged) ...
-
+    // Voice Recognition Setup
+    console.log("Setting up voice recognition");
     const voiceButton = document.createElement('button');
     voiceButton.textContent = 'Start Voice Recognition';
     voiceButton.id = 'voiceRecognitionButton';
+    voiceButton.style.position = 'fixed';
+    voiceButton.style.bottom = '20px';
+    voiceButton.style.left = '20px';
+    voiceButton.style.zIndex = '1000';
     document.body.appendChild(voiceButton);
+    console.log("Voice button created:", voiceButton);
 
-    voiceButton.addEventListener('click', async () => {
-        console.log('Button clicked');
-        
+    voiceButton.addEventListener('click', () => {
+        console.log('Voice button clicked');
         if (!('webkitSpeechRecognition' in window)) {
             console.error('Web Speech API is not supported in this browser');
             alert('Web Speech API is not supported in this browser. Please try using Google Chrome.');
             return;
         }
-
-        try {
-            // Force a permission request for the microphone
-            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-            stream.getTracks().forEach(track => track.stop());
-            console.log('Microphone permission granted');
-            
-            startVoiceRecognition();
-        } catch (err) {
-            console.error('Error accessing the microphone', err);
-            alert('Unable to access the microphone. Please check your browser settings and try again.');
-        }
+        startVoiceRecognition();
     });
 
     function startVoiceRecognition() {
+        console.log('Starting voice recognition');
         const recognition = new webkitSpeechRecognition();
         recognition.continuous = true;
         recognition.interimResults = false;
@@ -412,6 +400,7 @@ document.addEventListener('DOMContentLoaded', () => {
         animateContainerResize();
         hideEnlargedTask();
     };
+
     
     const animateContainerResize = () => {
         const container = document.querySelector('.timed-tasks-container');
